@@ -1,0 +1,7 @@
+streamlit
+openai
+flask
+ollama
+duckdb
+sphinx
+couchdb
