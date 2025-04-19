@@ -117,7 +117,7 @@ Description: Retrieves the history of prompts and their corresponding results.
   .. code-block:: json
 
     {
-        "filter": "*not_yet_implemented*"
+        "filter": "not_yet_implemented"
     }
 
 **Response**
