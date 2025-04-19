@@ -28,8 +28,6 @@ def get_models():
     
     return jsonify({"models": get_model_list()})
 
-
-
 def get_prompt_response(prompt: str, model: str = 'duckdb-nsql:latest'):
     sql_query, metadata_used = generate_sql(prompt = prompt, model = model)
     statistics = get_query_statistics(sql_query)

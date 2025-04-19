@@ -4,10 +4,12 @@
 
 Welcome to ollama-duckdb-prompt-tracker's documentation!
 ========================================================
+**ollama-duckdb-prompt-tracker** is a demo MVP version of a prompt tracker for DuckDB.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+Overview
+==================
+:doc:`overview` provides a high-level overview of the project, including its purpose and key features.
+
 
 
 
@@ -19,3 +21,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
