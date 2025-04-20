@@ -36,6 +36,113 @@
   <section id="server-module">
 <h1>Server Module<a class="headerlink" href="#server-module" title="Link to this heading">¶</a></h1>
 <p>This module provides a Flask server that exposes APIs for generating SQL queries from natural language prompts, retrieving model lists, and storing/retrieving prompt history.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">run_prompt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong>:</p>
+<p>Accepts a natural language prompt and a model name, generates a SQL query, and returns the result.</p>
+<p><strong>Request Body</strong>:</p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your natural language prompt&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Model name (default: duckdb-nsql:latest)&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Response</strong>:</p>
+<dl>
+<dt>On success:</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;prompt_result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your natural language prompt&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;llm_model_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Model name&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SQL returned&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Generated SQL query&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;result_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Execution status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;result_statistics&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Explain plan or statistics&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;metadata_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Metadata used for query generation&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>On error:</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;No prompt provided&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">get_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong>:</p>
+<p>Returns a list of available models.</p>
+<p><strong>Response</strong>:</p>
+<dl>
+<dt>On success:</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;models&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;model1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;model2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;model3&quot;</span><span class="p">]</span>
+<span class="p">}</span><span class="w">    </span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">get_prompt_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'duckdb-nsql:latest'</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong></p>
+<blockquote>
+<div><p>Generates a SQL query from a natural language prompt using the specified model.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prompt</strong> (<em>str</em>) – The natural language prompt.</p></li>
+<li><p><strong>model</strong> (<em>str</em>) – The model to use for query generation (default: duckdb-nsql:latest).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the generated SQL query, execution status, explain plan, and metadata used.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">server.</span></span><span class="sig-name descname"><span class="pre">get_prompt_history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong>:</p>
+<p>Description: (deployment test 1) Retrieves the history of prompts and their corresponding results.
+<strong>Request Body</strong>:</p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;not_yet_implemented&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Response</strong></p>
+<dl>
+<dt>On success:</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;prompt_history&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;source_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Prompt 1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;llm_model_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Model name&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;SQL returned&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Generated SQL query&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;result_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Execution status&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;result_statistics&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Explain plan or statistics&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;metadata_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Metadata used for query generation&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
