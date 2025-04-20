@@ -111,7 +111,7 @@ def get_prompt_history():
     '''
 **Description**: 
 
-Description: Retrieves the history of prompts and their corresponding results.
+Description: (deployment test) Retrieves the history of prompts and their corresponding results.
 **Request Body**:
 
   .. code-block:: json
