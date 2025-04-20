@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from generate import generate_sql, get_query_statistics, get_model_list 
-from database import store_data, get_all_data,get_data
+from database import store_data, get_all_data
 
 app = Flask(__name__)
 
