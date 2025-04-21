@@ -35,17 +35,26 @@
             
   <section id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h1>
-<section id="problem-statement">
-<h2>Problem Statement<a class="headerlink" href="#problem-statement" title="Link to this heading">¶</a></h2>
-</section>
+<p>The goal of this project is to build a Text2SQL application that can be used to convert natural language queries into SQL queries. The application will be built using a combination of LLMs and traditional database management techniques. The problem is described in <a class="reference external" href="https://guha-ayan.medium.com/text2sql-evaluation-accelerator-a52774832bdf">Blog</a></p>
+<p>User Interface and API layers will be standard web development components — to enable functionalities for end users. There are a ton of great examples of such applications. In the demo, I used streamlit and Flask, though I would propose to use any better alternative for streamlit.</p>
 <section id="functional-view">
 <h2>Functional view<a class="headerlink" href="#functional-view" title="Link to this heading">¶</a></h2>
+<a class="reference internal image-reference" href="_images/Misc-OverAll Idea.jpg"><img alt="_images/Misc-OverAll%20Idea.jpg" class="align-center" src="_images/Misc-OverAll%20Idea.jpg" style="width: 600px;" />
+</a>
+<p>Key aspects of the solution will be</p>
+<p><strong>Database Manager</strong></p>
+<p>A key requirement of the application to have an extensible component to manage all database interactions. Each database/data warehousing solution exposes metadata differently with minor variations. The SQL dialects and available functions are unique. Documentation pages are database specific too. And very importantly, each database reports query performance statistics differently. So it is critical to use an adapter pattern to build out specific database manager — or even better to utilise existing libraries via a thin wrapper on top of them.</p>
+<p><strong>LLM Manager</strong></p>
+<p>Similar to database manager, the idea is to manage a way to standardise how the prompts are collected, tuned and modified over various experimentation and finally able to choose the right one. While I started the basic demo using Ollama to keep things local, it seems Anthropic MCP is designed for this exact purpose and can be adapted to Text2SQL use case</p>
+<p><strong>Result Manager</strong></p>
+<p>A standard way to store the prompt, system prompt, LLM response (with chain of thought if applicable), SQL generated, SQL run statistics, SQL similarity with a curated set etc. Generally this can be any database — I used local couchdb server as I believe NoSQL databases will be a good choice for this scenario.</p>
 </section>
 <section id="mvp-view">
 <h2>MVP view<a class="headerlink" href="#mvp-view" title="Link to this heading">¶</a></h2>
-</section>
-<section id="blog">
-<h2>Blog<a class="headerlink" href="#blog" title="Link to this heading">¶</a></h2>
+<p>Here is how the demo version looks like</p>
+<a class="reference internal image-reference" href="_images/Misc-MVP build.jpg"><img alt="_images/Misc-MVP%20build.jpg" class="align-center" src="_images/Misc-MVP%20build.jpg" style="width: 600px;" />
+</a>
+<p>A screen Recording <a class="reference external" href="https://youtu.be/LADTN3Lj8UU">Youtube Video</a></p>
 </section>
 </section>
 
@@ -77,10 +86,8 @@
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#problem-statement">Problem Statement</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#functional-view">Functional view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mvp-view">MVP view</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#blog">Blog</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ui.html">User Interface</a></li>
