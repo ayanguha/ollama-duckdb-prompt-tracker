@@ -14,7 +14,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Server Module" href="api.html" />
+    <link rel="next" title="Server Module" href="server.html" />
     <link rel="prev" title="Overview" href="overview.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -35,11 +35,44 @@
             
   <section id="user-interface">
 <h1>User Interface<a class="headerlink" href="#user-interface" title="Link to this heading">¶</a></h1>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-</section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p>Streamlit App for sending prompts to a Flask server and displaying the results.</p>
+<p>This application allows users to input a prompt, select a model from available options,
+and submit the prompt to a Flask server endpoint. The server processes the prompt using
+the selected model and returns the response, which is then displayed in the app. Additionally,
+the app fetches and displays the history of all prompts submitted.</p>
+</section>
+<section id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Link to this heading">¶</a></h2>
+<p><cite>streamlit</cite> used for creating the web application interface.</p>
+<p><cite>requests</cite> used for making HTTP requests to the Flask server.</p>
+</section>
+<section id="functions">
+<h2>Functions:<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<p>None</p>
+</section>
+<section id="api-endpoints-consumed">
+<h2>API Endpoints Consumed<a class="headerlink" href="#api-endpoints-consumed" title="Link to this heading">¶</a></h2>
+<p>GET /models: Fetches the list of available models from the Flask server.</p>
+<p>POST /run_prompt: Sends the user’s prompt and selected model to the Flask server for processing.</p>
+<p>POST /prompt_history: Fetches the history of all prompts submitted to the Flask server.</p>
+<p>See <a class="reference internal" href="server.html"><span class="doc">Server Module</span></a> for more details on the API endpoints.</p>
+</section>
+<section id="id1">
+<h2>User Interface<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p><strong>Title</strong>: “Streamlit App”</p>
+<p><strong>Text Area</strong>: For inputting the user’s prompt.</p>
+<p><strong>Pills</strong>: For selecting the model to use.</p>
+<p><strong>Button</strong>: For submitting the prompt.</p>
+<p><strong>Display</strong>: Shows the user’s prompt and the server’s response.</p>
+<p><strong>Display</strong>: Shows the history of all prompts submitted.</p>
+</section>
+<section id="how-to-run">
+<h2>How to Run<a class="headerlink" href="#how-to-run" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>streamlit<span class="w"> </span>run<span class="w"> </span>src/ui.py
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -72,11 +105,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">User Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-endpoints-consumed">API Endpoints Consumed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">User Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-run">How to Run</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Server Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database_manager.html">Database Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prompt_manager.html">Prompt Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="result_manager.html">Result Manager</a></li>
@@ -87,7 +124,7 @@
 <ul>
   <li><a href="contents.html">Documentation overview</a><ul>
       <li>Previous: <a href="overview.html" title="previous chapter">Overview</a></li>
-      <li>Next: <a href="api.html" title="next chapter">Server Module</a></li>
+      <li>Next: <a href="server.html" title="next chapter">Server Module</a></li>
   </ul></li>
 </ul>
 </div>
