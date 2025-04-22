@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from generate import generate_sql, get_query_statistics, get_model_list 
-from database import store_data, get_all_data
+from database_manager import generate_sql, get_query_statistics, get_model_list 
+from result_manager import store_data, get_all_data
 
 app = Flask(__name__)
 
@@ -141,7 +141,6 @@ On success:
     
     '''
     all_results = get_all_data()
-    print(all_results)
     print(jsonify({"prompt_history": all_results}))
     return jsonify({"prompt_history": all_results}), 200
 

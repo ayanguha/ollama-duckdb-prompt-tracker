@@ -3,7 +3,7 @@
    
    overview 
    ui
-   api 
+   server 
    database_manager
    prompt_manager
    result_manager

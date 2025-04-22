@@ -75,6 +75,6 @@ with tab1:
 
 
 with tab2:
-    all_results = requests.post("http://localhost:5000/prompt_history").json().get('prompt_history')#
-
+    all_results = requests.post("http://localhost:5000/prompt_history")
+    all_results = all_results.json().get('prompt_history')
     st.json(all_results, expanded=1)
