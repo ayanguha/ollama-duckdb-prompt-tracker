@@ -1,7 +1,7 @@
 import couchdb 
 
 
-def __createOrGetDatabase__():
+def createOrGetDatabase():
     """
     create a connection to the couchdb server running on ```localhost:5984```
     create a database called ollama-duckdb-prompt-tracker. If it already exists, get the existing database
@@ -13,6 +13,7 @@ def __createOrGetDatabase__():
         This function is used to create a connection to the couchdb server running on locally for MVP. 
         Please overwrite this appropriately for any production workload
     
+    :meta public:
     
     """
     couch = couchdb.Server('http://admin:admin@127.0.0.1:5984//')
@@ -26,14 +27,14 @@ def __createOrGetDatabase__():
 def store_data(data):
 
     """
-    Get the database object from the __createOrGetDatabase__ function and store the data in the database
+    Get the database object from the createOrGetDatabase function and store the data in the database
     
     :param data: data to be stored in the database
     :return: id of the data stored in the database
 
     """
 
-    db = __createOrGetDatabase__()
+    db = createOrGetDatabase()
     _id, _rev = db.save(data)
     return _id  
 
@@ -41,7 +42,7 @@ def store_data(data):
 def get_all_data():
 
     """
-    Get the database object from the __createOrGetDatabase__ function and get all the data from the database
+    Get the database object from the createOrGetDatabase function and get all the data from the database
     
     :return: list of all data in the database
     :rtype: list
@@ -51,7 +52,7 @@ def get_all_data():
     
     """
 
-    db = __createOrGetDatabase__()
+    db = createOrGetDatabase()
     results = db.view('_all_docs',include_docs=True)
     return [r.doc for r in results]
 
