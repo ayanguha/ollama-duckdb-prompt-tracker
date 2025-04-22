@@ -19,3 +19,8 @@ Installation
 ------------------------
 
 CouchDB Installation: https://docs.couchdb.org/en/stable/install/index.html
+
+.. code-block:: bash
+
+    pip install couchdb
+

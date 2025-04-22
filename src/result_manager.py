@@ -3,7 +3,7 @@ import couchdb
 
 def createOrGetDatabase():
     """
-    create a connection to the couchdb server running on ```localhost:5984```
+    create a connection to the couchdb server running on ``localhost:5984``
     create a database called ollama-duckdb-prompt-tracker. If it already exists, get the existing database
     return the database object
     create a connection to the couchdb server running on localhost:5984

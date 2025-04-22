@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
-from database_manager import generate_sql, get_query_statistics, get_model_list 
+from database_manager import get_query_statistics 
 from result_manager import store_data, get_all_data
+from prompt_manager import generate_sql, get_model_list
 
 app = Flask(__name__)
 
@@ -55,9 +56,6 @@ On error:
     
     if prompt:
         result = get_prompt_response(prompt = prompt, model = model)
-        #prompt_history.append(result)
-
-        #return jsonify({"prompt_history": prompt_history}), 200
         return jsonify({"prompt_result": result}), 200
     return jsonify({"error": "No prompt provided"}), 400
 
