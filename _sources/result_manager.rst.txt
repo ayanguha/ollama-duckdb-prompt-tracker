@@ -18,4 +18,4 @@ Usage
 Installation  
 ------------------------
 
-
+CouchDB Installation: https://docs.couchdb.org/en/stable/install/index.html
