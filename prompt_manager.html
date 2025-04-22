@@ -35,11 +35,120 @@
             
   <section id="prompt-manager">
 <h1>Prompt Manager<a class="headerlink" href="#prompt-manager" title="Link to this heading">¶</a></h1>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-</section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">prompt_manager.</span></span><span class="sig-name descname"><span class="pre">get_model_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong></p>
+<p>Returns a list of available models in local <code class="docutils literal notranslate"><span class="pre">ollama</span></code> installation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of model names</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The models are expected to be installed locally and accessible via the <cite>ollama</cite> python library. 
+The function returns a list of model names that can be used for generating SQL queries.</p>
+</div>
+<p>You can check if <code class="docutils literal notranslate"><span class="pre">ollama</span></code> is installed by running the following command in your terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>list
+
+NAME<span class="w">                    </span>ID<span class="w">              </span>SIZE<span class="w">    </span>MODIFIED<span class="w">    </span>
+
+starcoder2:7b<span class="w">           </span>1550ab21b10d<span class="w">    </span><span class="m">4</span>.0<span class="w"> </span>GB<span class="w">  </span><span class="m">5</span><span class="w"> </span>weeks<span class="w"> </span>ago<span class="w">     </span>
+
+codellama:7b<span class="w">            </span>8fdf8f752f6e<span class="w">    </span><span class="m">3</span>.8<span class="w"> </span>GB<span class="w">  </span><span class="m">5</span><span class="w"> </span>weeks<span class="w"> </span>ago<span class="w">     </span>
+
+sqlcoder:7b<span class="w">             </span>77ac14348387<span class="w">    </span><span class="m">4</span>.1<span class="w"> </span>GB<span class="w">  </span><span class="m">5</span><span class="w"> </span>weeks<span class="w"> </span>ago<span class="w">     </span>
+
+duckdb-nsql:latest<span class="w">      </span>3ed734989690<span class="w">    </span><span class="m">3</span>.8<span class="w"> </span>GB<span class="w">  </span><span class="m">5</span><span class="w"> </span>weeks<span class="w"> </span>ago
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">prompt_manager.</span></span><span class="sig-name descname"><span class="pre">get_system_prompt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong></p>
+<p>Returns a system prompt template for SQL query generation.
+The system prompt provides context to the model about its role and the task it needs to perform.
+The prompt includes a placeholder for metadata, which will be replaced with the actual database schema information.
+The metadata is expected to be a list of tuples, each containing information about a table and its columns.
+The system prompt also includes guidelines for the model to follow when generating the SQL query.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">prompt_manager.</span></span><span class="sig-name descname"><span class="pre">get_guideline_prompts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong></p>
+<p>Returns a set of guidelines for the model to follow when generating SQL queries.
+The guidelines specify that the result should be a valid SQL query that can be executed on the provided schema.
+The model is instructed to return only the SQL query as a string.
+The guidelines are designed to ensure that the generated SQL query is syntactically correct and adheres to SQL standards.
+The guidelines are appended to the system prompt to provide additional context to the model.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">prompt_manager.</span></span><span class="sig-name descname"><span class="pre">generate_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p><strong>Description</strong></p>
+<p>Generates a SQL query from a natural language prompt using the specified model.
+The function first retrieves the metadata from the database using the <cite>get_all_metadata</cite> function.
+The metadata is then used to replace the placeholder in the system prompt template.
+The model is then called to generate the SQL query based on the provided prompt and system prompt.
+The generated SQL query is returned along with the metadata used for generation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prompt</strong> (<em>str</em>) – The natural language prompt.</p></li>
+<li><p><strong>model</strong> (<em>str</em>) – The model to use for query generation (default: duckdb-nsql:latest).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the generated SQL query and the metadata used for generation.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If the model is not found or if there is an error during SQL generation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
+<p>Ollama Installation: <a class="reference external" href="https://ollama.com/download">https://ollama.com/download</a></p>
+<p>Ollama CLI commands: <a class="reference external" href="https://github.com/ollama/ollama?tab=readme-ov-file#quickstart">https://github.com/ollama/ollama?tab=readme-ov-file#quickstart</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ollama</span>
+<span class="n">Usage</span>
+    <span class="n">ollama</span> <span class="p">[</span><span class="n">flags</span><span class="p">]</span>
+    <span class="n">ollama</span> <span class="p">[</span><span class="n">command</span><span class="p">]</span>
+
+<span class="n">Available</span> <span class="n">Commands</span>
+<span class="n">serve</span>       <span class="n">Start</span> <span class="n">ollama</span>
+<span class="n">create</span>      <span class="n">Create</span> <span class="n">a</span> <span class="n">model</span> <span class="kn">from</span><span class="w"> </span><span class="nn">a</span> <span class="n">Modelfile</span>
+<span class="n">show</span>        <span class="n">Show</span> <span class="n">information</span> <span class="k">for</span> <span class="n">a</span> <span class="n">model</span>
+<span class="n">run</span>         <span class="n">Run</span> <span class="n">a</span> <span class="n">model</span>
+<span class="n">pull</span>        <span class="n">Pull</span> <span class="n">a</span> <span class="n">model</span> <span class="kn">from</span><span class="w"> </span><span class="nn">a</span> <span class="n">registry</span>
+<span class="n">push</span>        <span class="n">Push</span> <span class="n">a</span> <span class="n">model</span> <span class="n">to</span> <span class="n">a</span> <span class="n">registry</span>
+<span class="nb">list</span>        <span class="n">List</span> <span class="n">models</span>
+<span class="n">ps</span>          <span class="n">List</span> <span class="n">running</span> <span class="n">models</span>
+<span class="n">cp</span>          <span class="n">Copy</span> <span class="n">a</span> <span class="n">model</span>
+<span class="n">rm</span>          <span class="n">Remove</span> <span class="n">a</span> <span class="n">model</span>
+<span class="n">help</span>        <span class="n">Help</span> <span class="n">about</span> <span class="nb">any</span> <span class="n">command</span>
+
+<span class="n">Flags</span><span class="p">:</span>
+<span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>      <span class="n">help</span> <span class="k">for</span> <span class="n">ollama</span>
+<span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span>   <span class="n">Show</span> <span class="n">version</span> <span class="n">information</span>
+
+<span class="n">Use</span> <span class="s2">&quot;ollama [command] --help&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span> <span class="n">about</span> <span class="n">a</span> <span class="n">command</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Ollama Python Package</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -75,8 +184,8 @@
 <li class="toctree-l1"><a class="reference internal" href="server.html">Server Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database_manager.html">Database Manager</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Prompt Manager</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="result_manager.html">Result Manager</a></li>
